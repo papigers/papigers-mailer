@@ -19,15 +19,15 @@ app.post('/contact-form', function emailSender(req, res) {
 
   var mailOptions = {
     from: process.env.USERNAME,
-    to: 'gershon@mouseux.com',
+    to: 'papigers93@gmail.com',
     subject: `הודעה חדשה מ: ${req.body['first-name']}`,
     text: `שם מלא: ${req.body['first-name']}\nחברה: ${req.body.company}\nאימייל: ${req.body.email}\nהודעה: ${req.body.message}`,
-    html: `<h1>הודעה חדשה מ: ${req.body['first-name']}</h1>
-<p><b>חברה:</b> ${req.body.company}</br>
+    html: `<h1 style="text-align: center">הודעה חדשה מ: ${req.body['first-name']}</h1>
+<p style="text-align: center"><b>חברה:</b> ${req.body.company}</br>
 <b>אימייל:</b> ${req.body.email}</br>
 <b>הודעה:</b> ${req.body.message}</p>
 </br>
-<p><b>זוהי הודעה אוטמטית, נא לא להשיב למייל זה</b></p>`
+<p style="text-align: center"><b>זוהי הודעה אוטמטית, נא לא להשיב למייל זה</b></p>`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
