@@ -1,8 +1,12 @@
 var nodemailer = require('nodemailer');
 var express = require('express');
 var http = require('http');
+var bodyParser = require('body-parser');
 
 var app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.post('/contact-form', function emailSender(req, res) {
   var transporter = nodemailer.createTransport({
@@ -14,24 +18,29 @@ app.post('/contact-form', function emailSender(req, res) {
   });
 
   var mailOptions = {
-    from: 'papigers93@gmail.com',
+    from: process.env.USERNAME,
     to: 'gershon@mouseux.com',
-    subject: 'Email Example',
-    text: 'Hello World',
-    html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+    subject: `הודעה חדשה מ: ${req.body['first-name']}`,
+    text: `שם מלא: ${req.body['first-name']}\nחברה: ${req.body.company}\nאימייל: ${req.body.email}\nהודעה: ${req.body.message}`,
+    html: `<h1>הודעה חדשה מ: ${req.body['first-name']}</h1>
+<p><b>חברה:</b> ${req.body.company}</br>
+<b>אימייל:</b> ${req.body.email}</br>
+<b>הודעה:</b> ${req.body.message}</p>
+</br>
+<p><b>זוהי הודעה אוטמטית, נא לא להשיב למייל זה</b></p>`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      console.log(error);
-      res.json({
-        yo: 'error'
-      });
-    } else {
-      console.log('Message sent: ' + info.response);
-      res.json({
-        yo: info.response
-      });
+      console.log('Error in sedning email');
+      console.dir(error);
+      console.dir(info);
+      res.end('Error in sedning email');
+    }
+    else {
+      console.log('Successful in sedning email');
+      console.dir(info);
+      res.end('Successful in sedning email');
     };
   });
 });
