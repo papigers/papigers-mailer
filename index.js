@@ -14,7 +14,7 @@ app.post('/contact-form', function emailSender(req, res) {
   });
 
   var mailOptions = {
-    from: 'papigers93@gmail.com>',
+    from: process.env.USERNAME,
     to: 'papigers93@gmail.com',
     subject: 'Email Example',
     text: 'Hello World',
