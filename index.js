@@ -25,9 +25,10 @@ app.post('/contact-form', function emailSender(req, res) {
     html: `<h2 style="text-align: center">הודעה חדשה מ: ${req.body['first-name']}</h2>
 <p style="text-align: center"><b>חברה:</b> ${req.body.company}<br/>
 <b>אימייל:</b> ${req.body.email}<br/>
-<b>הודעה:</b> ${req.body.message}</p>
+<b style="text-align: right">הודעה:</b> ${req.body.message}</p>
 <br/>
-<p style="text-align: center"><b>זוהי הודעה אוטמטית, נא לא להשיב למייל זה</b></p>`
+<p style="text-align: center"><b>זוהי הודעה אוטמטית, נא לא להשיב למייל זה</b></p>
+<p style="text-align: center; color: red;"><b>יש להשיב למייל המצויין בהודעה</b></p>`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
