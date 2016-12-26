@@ -19,13 +19,13 @@ app.post('/contact-form', function emailSender(req, res) {
 
   var mailOptions = {
     from: process.env.USERNAME,
-    to: 'papigers93@gmail.com',
+    to: 'info@mouseux.com',
     subject: `הודעה חדשה מ: ${req.body['first-name']}`,
     text: `שם מלא: ${req.body['first-name']}\nחברה: ${req.body.company}\nאימייל: ${req.body.email}\nהודעה: ${req.body.message}`,
     html: `<h2 style="text-align: center">הודעה חדשה מ: ${req.body['first-name']}</h2>
-<p style="text-align: center"><b>חברה:</b> ${req.body.company}<br/>
+<p style="direction: rtl"><b>חברה:</b> ${req.body.company}<br/>
 <b>אימייל:</b> ${req.body.email}<br/>
-<b style="text-align: right">הודעה:</b> ${req.body.message}</p>
+<b>הודעה:</b> ${req.body.message}</p>
 <br/>
 <p style="text-align: center"><b>זוהי הודעה אוטמטית, נא לא להשיב למייל זה</b></p>
 <p style="text-align: center; color: red;"><b>יש להשיב למייל המצויין בהודעה</b></p>`
