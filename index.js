@@ -14,8 +14,8 @@ app.post('/contact-form', function emailSender(req, res) {
   });
 
   var mailOptions = {
-    from: process.env.USERNAME,
-    to: 'papigers93@gmail.com',
+    from: 'papigers93@gmail.com',
+    to: 'gershon@mouseux.com',
     subject: 'Email Example',
     text: 'Hello World',
     html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
