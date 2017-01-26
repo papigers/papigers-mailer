@@ -19,7 +19,7 @@ app.post('/contact-form', function emailSender(req, res) {
 
   var mailOptions = {
     from: process.env.USERNAME,
-    to: 'papigers93@gmail.com.com',
+    to: 'papigers93@gmail.com',
     subject: `הודעה חדשה מ: ${req.body['first-name']}`,
     text: `שם מלא: ${req.body['first-name']}\nחברה: ${req.body.company}\nאימייל: ${req.body.email}\nהודעה: ${req.body.message}`,
     html: `<h2 style="text-align: center">הודעה חדשה מ: ${req.body['first-name']}</h2>
