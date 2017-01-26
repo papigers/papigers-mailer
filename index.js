@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.post('/contact-form', function emailSender(req, res) {
+  console.log(req.body);
   var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
