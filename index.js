@@ -9,7 +9,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.post('/contact-form', function emailSender(req, res) {
-  console.log(req.body);
   var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -37,12 +36,16 @@ app.post('/contact-form', function emailSender(req, res) {
       console.log('Error in sedning email');
       console.dir(error);
       console.dir(info);
-      res.end('Error in sedning email');
+      res.status(500).json({
+        type: 'error',
+      })
     }
     else {
       console.log('Successful in sedning email');
       console.dir(info);
-      res.end('Successful in sedning email');
+      res.status(200).json({
+        type: 'success',
+      });
     };
   });
 });
