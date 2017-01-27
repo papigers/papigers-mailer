@@ -10,6 +10,19 @@ app.use(bodyParser.json())
 
 app.post('/contact-form', function emailSender(req, res) {
   res.header('Access-Control-Allow-Origin', '*');
+  
+  if (req.body.subject) {
+    return res.status(403).end('Spambot Detected');
+  }
+  
+  if (!req.body.name || !req.body.email) {
+    return res.status(500).end('אנא מלא את כל השדות הדרושים');
+  }
+  
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email)) {
+    return res.status(500).end('אימייל לא תקיו');
+  }
+  
   var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -37,16 +50,12 @@ app.post('/contact-form', function emailSender(req, res) {
       console.log('Error in sedning email');
       console.dir(error);
       console.dir(info);
-      res.status(500).json({
-        type: 'error',
-      })
+      return res.status(500).end('שליחת הפרטים נכשלה, אנא נסה מאוחר יותר או צור איתנו קשר באמצעי אחר, תודה!');
     }
     else {
       console.log('Successful in sedning email');
       console.dir(info);
-      res.status(200).json({
-        type: 'success',
-      });
+      res.status(200).end('פרטיך נשלחו בהצלחה, נציגינו יחזור אליך בהקדם, תודה!');
     };
   });
 });
