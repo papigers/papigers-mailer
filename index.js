@@ -8,23 +8,19 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.post('/contact-form', function emailSender(req, res) {
-  res.header('Access-Control-Allow-Origin', '*');
+app.post('/', function emailSender(req, res) {
+  // res.header('Access-Control-Allow-Origin', '*');
   
-  if (req.body.subject) {
-    return res.status(403).end('Spambot Detected');
-  }
-  
-  if (!req.body.name || !req.body.email) {
-    return res.status(500).end('אנא מלא את כל השדות הדרושים');
+  if (!req.body.name || !req.body.email || !req.body.message) {
+    return res.status(400).end('All fields must be filled');
   }
   
   if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email)) {
-    return res.status(500).end('אימייל לא תקיו');
+    return res.status(400).end('Email not valid');
   }
   
   var transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    service: 'gmail',
     auth: {
       user: process.env.USERNAME,
       pass: process.env.PASSWORD,
@@ -33,11 +29,11 @@ app.post('/contact-form', function emailSender(req, res) {
 
   var mailOptions = {
     from: process.env.USERNAME,
-    to: 'info@mouseux.com',
-    subject: `הודעה חדשה מ: ${req.body['first-name']}`,
-    text: `שם מלא: ${req.body['first-name']}\nחברה: ${req.body.company}\nאימייל: ${req.body.email}\nהודעה: ${req.body.message}`,
-    html: `<h2 style="text-align: center">הודעה חדשה מ: ${req.body['first-name']}</h2>
-<p style="direction: rtl"><b>חברה:</b> ${req.body.company}<br/>
+    to: 'papigers93@gmail.com',
+    subject: `הודעה חדשה מ: ${req.body.name}`,
+    text: `שם מלא: ${req.body.name}\n\nאימייל: ${req.body.email}\nהודעה: ${req.body.message}`,
+    html: `<h2 style="text-align: center">הודעה חדשה מ: ${req.body.name}</h2>
+<p style="direction: rtl">
 <b>אימייל:</b> ${req.body.email}<br/>
 <b>הודעה:</b> ${req.body.message}</p>
 <br/>
@@ -47,15 +43,15 @@ app.post('/contact-form', function emailSender(req, res) {
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      console.log('Error in sedning email');
-      console.dir(error);
-      console.dir(info);
-      return res.status(500).end('שליחת הפרטים נכשלה, אנא נסה מאוחר יותר או צור איתנו קשר באמצעי אחר, תודה!');
+      console.log('Error sending email');
+      console.error(error);
+      console.log(info);
+      return res.sendStatus(500);
     }
     else {
-      console.log('Successful in sedning email');
-      console.dir(info);
-      res.status(200).end('פרטיך נשלחו בהצלחה, נציגינו יחזור אליך בהקדם, תודה!');
+      console.log('Email sent successfully');
+      console.log(info);
+      res.sendStatus(200);
     };
   });
 });

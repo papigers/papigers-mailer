@@ -1,7 +1,7 @@
 {
-  "name": "mouseux-emailsender",
+  "name": "papigers-mailer",
   "version": "1.0.0",
-  "description": "Email Service API for MouseUX Website",
+  "description": "Email Service API for personal Website",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,6 +12,6 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "nodemailer": "^2.7.0"
+    "nodemailer": "^4.7.0"
   }
 }
