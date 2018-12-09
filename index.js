@@ -22,13 +22,13 @@ app.post('/', function emailSender(req, res) {
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.USERNAME,
-      pass: process.env.PASSWORD,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
   var mailOptions = {
-    from: process.env.USERNAME,
+    from: process.env.EMAIL_USER,
     to: 'papigers93@gmail.com',
     subject: `הודעה חדשה מ: ${req.body.name}`,
     text: `שם מלא: ${req.body.name}\n\nאימייל: ${req.body.email}\nהודעה: ${req.body.message}`,
