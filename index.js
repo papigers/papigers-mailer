@@ -11,7 +11,7 @@ origin = origins.split(',');
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(cors({ origin: origin }))
+app.use(cors({ origin: 'https://papigers.github.io' }))
 
 app.post('/', function emailSender(req, res) {
   // res.header('Access-Control-Allow-Origin', '*');
