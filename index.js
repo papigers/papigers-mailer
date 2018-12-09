@@ -6,13 +6,12 @@ var cors = require('cors');
 
 var app = express();
 
-var origins = process.env.CORS_ORIGINS || '';
-origins = origins.split(',');
-console.log(process.env.CORS_ORIGINS, origins);
+var origin = process.env.CORS_ORIGINS || '';
+origin = origins.split(',');
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(cors(origins))
+app.use(cors({ origin: origin }))
 
 app.post('/', function emailSender(req, res) {
   // res.header('Access-Control-Allow-Origin', '*');
