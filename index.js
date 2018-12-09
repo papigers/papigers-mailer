@@ -7,11 +7,11 @@ var cors = require('cors');
 var app = express();
 
 var origin = process.env.CORS_ORIGINS || '';
-origin = origins.split(',');
+origin = origin.split(',');
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(cors({ origin: 'https://papigers.github.io' }))
+app.use(cors({ origin: origin }))
 
 app.post('/', function emailSender(req, res) {
   // res.header('Access-Control-Allow-Origin', '*');
