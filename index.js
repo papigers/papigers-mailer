@@ -8,6 +8,7 @@ var app = express();
 
 var origins = process.env.CORS_ORIGINS || '';
 origins = origins.split(',');
+console.log(process.env.CORS_ORIGINS, origins);
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
