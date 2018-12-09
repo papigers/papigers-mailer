@@ -2,11 +2,16 @@ var nodemailer = require('nodemailer');
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var app = express();
 
+var origins = process.env.CORS_ORIGINS || '';
+origins = origins.split(',');
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(cors(origins))
 
 app.post('/', function emailSender(req, res) {
   // res.header('Access-Control-Allow-Origin', '*');
